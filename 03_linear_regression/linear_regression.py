@@ -11,13 +11,13 @@ dataset = TensorDataset(x, y)
 dataloader = DataLoader(dataset, batch_size=2, shuffle=True)    
 
 # 3. 定义线性回归模型
-modal = nn.Linear(in_features=1, out_features=1)
+model = nn.Linear(in_features=1, out_features=1)
 
 # 4. 定义损失函数
 loss_fn = nn.MSELoss()
 
 # 5. 定义优化器
-optimizer = torch.optim.SGD(modal.parameters(), lr=0.01)
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
 
 # 6. 训练模型
 epoch = 100
@@ -28,7 +28,7 @@ for epoch in range(epoch):
 
     for batch_x, batch_y in dataloader:
         # 前向传播
-        y_pred = modal(batch_x)
+        y_pred = model(batch_x)
         
         # 计算损失
         loss = loss_fn(y_pred, batch_y)
@@ -46,11 +46,11 @@ for epoch in range(epoch):
         print(f'Epoch [{epoch + 1}/{epoch}], Loss: {total_loss:.4f}')
 
 # 7. 看看训练好的模型参数
-print(f'Weight: {modal.weight.item():.4f}, Bias: {modal.bias.item():.4f}')
+print(f'Weight: {model.weight.item():.4f}, Bias: {model.bias.item():.4f}')
 
 # 8. 测试模型   
 test_x = torch.tensor([[7.0]])
-test_y_pred = modal(test_x) 
+test_y_pred = model(test_x) 
 
 print(f'Prediction for input 7.0: {test_y_pred.item():.4f}')
 print("x=7,prediction: ", test_y_pred.item())
